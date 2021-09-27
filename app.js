@@ -3,6 +3,7 @@ const path = require('path');
 const exphbs  = require('express-handlebars');
 // * link router
 const homeRoute = require('./servers/routers/homeRouter');
+const productRoute = require('./servers/routers/productRouter');
 
 const app = express();
 const port = 3000;
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, '/clients/public')));
 
 // * connect router
 app.use('', homeRoute);
+app.use('', productRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

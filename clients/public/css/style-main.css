@@ -1,0 +1,31 @@
+:root {}
+
+.ms-index {}
+
+.ms-index .image {
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+}
+
+.ms-index .dropdown-menu {
+    left: -150px;
+
+}
+
+.cp-index {
+    cursor: pointer;
+}
+
+.cp-index:hover {
+    color: darkcyan;
+}
+
+/*common*/
+.w-100 {
+    width: 100%;
+}
+
+.float-right {
+    float: right;
+}
