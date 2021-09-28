@@ -1,0 +1,87 @@
+<el-dialog :title="title" :visible.sync="dialogCreateProduct">
+    <el-form :label-position="labelPosition = 'top'" :model="productForm" :rules="productValidate" ref="productForm"
+        label-width="120px" class="demo-ruleForm">
+        <div class="row">
+            <div class="col-lg-3">
+                <el-form-item label="Ảnh minh hoạ">
+                    <el-input id="fileUploadImage" type="file" v-model="productForm.image" @change="uploadImage">
+                    </el-input>
+                </el-form-item>
+                <center>
+                    <img id="uploadImage" src="images/common/noimage.png" class="upload-image" alt="" srcset="">
+                    <el-button class="mt-2" type="danger" size="mini" v-if="isTimesBtnImage == true"
+                        @click="remoteImage('productForm')">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        Xoá ảnh
+                    </el-button>
+                </center>
+            </div>
+            <div class="col-lg-9">
+                <el-form-item label="Mã sản phẩm" prop="code">
+                    <el-input v-model="productForm.code" placeholder="Vui lòng nhập mã sản phẩm" maxlength="10"
+                        show-word-limit></el-input>
+                </el-form-item>
+                <el-form-item label="Tên sản phẩm" prop="name">
+                    <el-input v-model="productForm.name" placeholder="Vui lòng nhập tên sản phẩm" maxlength="200"
+                        show-word-limit></el-input>
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="Danh mục">
+                    <el-select class="w-100" v-model="productForm.category" multiple
+                        placeholder="Vui lòng chọn danh mục cho sản phẩm">
+                        <el-option v-for="item in listData.optionsCategoryProduct" :key="item.value" :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <el-form-item label="Giá sản phẩm" prop="price">
+                            <el-input v-model="productForm.price" placeholder="Vui lòng nhập giá sản phẩm"
+                                maxlength="100" show-word-limit>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col-lg-6">
+                        <el-form-item label="Phần trăm khuyến mãi" prop="percentDiscount">
+                            <el-input v-model="productForm.percentDiscount"
+                                placeholder="Vui lòng nhập phần trăm khuyến mãi" maxlength="3" show-word-limit>
+                            </el-input>
+                        </el-form-item>
+                    </div>
+                    <div class="col-lg-12">
+                        <el-tag type="info" effect="plain">Tổng tiền (Bao gồm khuyến mãi): <b v-text="moneySum"></b>
+                        </el-tag>
+                    </div>
+                </div>
+                <el-form-item label="Mô tả" prop="describe">
+                    <el-input type="textarea" v-model="productForm.describe" placeholder="Vui lòng nhập mô tả"
+                        maxlength="500" show-word-limit></el-input>
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="Nội dung" prop="describe">
+                    <el-input type="textarea" v-model="productForm.content" placeholder="Vui lòng nhập nội dung">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="Lượt xem" prop="content">
+                    <el-input-number v-model="productForm.view" @change="handleChange" :min="1">
+                    </el-input-number>
+                </el-form-item>
+                <el-form-item label="Tình trạng">
+                    <el-switch v-model="productForm.active">
+                    </el-switch>
+                </el-form-item>
+                <el-form-item class="mt-2">
+                    <el-button type="primary" @click="createProduct('productForm')">
+                        <i class="fas fa-save"></i>
+                        Lưu thay đổi
+                    </el-button>
+                    <el-button @click="resetProductForm('productForm')">
+                        <i class="fas fa-sync"></i>
+                        Làm mới
+                    </el-button>
+                </el-form-item>
+            </div>
+        </div>
+    </el-form>
+</el-dialog>

@@ -21,11 +21,35 @@
     color: darkcyan;
 }
 
+.ms-create .el-dialog {
+    width: 70%;
+    margin-top: 2% !important;
+}
+
+.ms-create .el-form--label-top .el-form-item__label {
+    font-weight: bold;
+    padding: inherit;
+}
+
+.ms-create .upload-image {
+    width: 100%;
+    height: 200px;
+}
+
+.ms-create .upload-image:hover {
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+        rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+}
+
 /*common*/
 .w-100 {
-    width: 100%;
+    width: 100% !important;
 }
 
 .float-right {
-    float: right;
+    float: right !important;
+}
+
+.mt-2 {
+    margin-top: 2% !important;
 }

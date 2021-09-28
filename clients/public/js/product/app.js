@@ -137,18 +137,148 @@ var Main = {
                 }, {
                     label: 'Xoá vĩnh viễn',
                     value: 'delete'
+                }],
+                optionsCategoryProduct: [{
+                    label: 'Quần dài',
+                    value: '1'
+                }, {
+                    label: 'Áo thun',
+                    value: '2'
+                }, {
+                    label: 'Quần đen',
+                    value: '3'
+                }, {
+                    label: 'Quần đẹp',
+                    value: '4'
+                }]
+            },
+            productForm: {
+                code: '',
+                name: '',
+                view: 1,
+                image: '',
+                describe: '',
+                percentDiscount: 0,
+                content: '',
+                price: '',
+                active: true,
+                category: []
+            },
+            productValidate: {
+                code: [{
+                    max: 10,
+                    message: 'Nhập quá số ký tự cho phép',
+                    trigger: 'change'
+                }],
+                name: [{
+                        max: 200,
+                        message: 'Nhập quá số ký tự cho phép',
+                        trigger: 'change'
+                    },
+                    {
+                        required: true,
+                        message: 'Tên sản phẩm là bắt buộc',
+                        trigger: 'change'
+                    },
+                ],
+                price: [{
+                    pattern: /[0-9]/,
+                    message: 'Vui lòng nhập đúng giá tiền',
+                    trigger: 'change'
+                }],
+                percentDiscount: [{
+                    max: 3,
+                    min: 0,
+                    message: 'Nhập quá số ký tự cho phép',
+                    trigger: 'change'
+                }],
+                describe: [{
+                    max: 500,
+                    message: 'Nhập quá số ký tự cho phép',
+                    trigger: 'change'
+                }],
+                content: [{
+
                 }]
             },
             namePage: "Quản lý sản phẩm",
             activeMain: 'index',
-            valueActive: ''
+            valueActive: '',
+            dialogCreateProduct: false,
+            moneySum: '0 VNĐ',
+            isTimesBtnImage: false
         }
     },
     mounted() {
 
     },
     methods: {
+        changeMoney(price) {
+            let that = this;
+            that.money = price;
 
+        },
+        remoteImage(productForm) {
+
+            let that = this;
+            that.isTimesBtnImage = false;
+
+            const preview = document.getElementById('uploadImage');
+
+            preview.src = 'images/common/noimage.png';
+
+            that.productForm.image = null;
+
+        },
+        uploadImage() {
+
+            let that = this;
+            that.isTimesBtnImage = true;
+
+            const preview = document.getElementById('uploadImage');
+            const file = document.querySelector('input[type=file]').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                // convert image file to base64 string
+                preview.src = reader.result;
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        },
+        clickCreateProduct() {
+            let that = this;
+            that.dialogCreateProduct = true;
+            that.title = "Thêm sản phẩm mới";
+        },
+        createProduct(productForm) {
+            let that = this;
+            that.$refs[productForm].validate((valid) => {
+                if (valid) {
+                    console.log(that.productForm);
+                    this.$notify({
+                        title: 'Thành công',
+                        message: 'Thêm sản phẩm [' + that.productForm.name + '] thành công!',
+                        type: 'success'
+                    });
+                    this.resetProductForm(productForm);
+                    this.clearCommon();
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+        },
+        resetProductForm(productForm) {
+            this.$refs[productForm].resetFields();
+        },
+        clearCommon() {
+            let that = this;
+            that.isTimesBtnImage = false;
+            that.dialogCreateProduct = false;
+        }
     }
 };
 var Ctor = Vue.extend(Main)
